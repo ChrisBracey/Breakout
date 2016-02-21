@@ -39,7 +39,6 @@ public class Ball extends Circle
 		if ((x >= paddle.x && x <= paddle.x + 100)
 				&& y == pane.getHeight() - 10 - paddle.getHeight()- ball.getRadius())
 		{
-			System.out.println(pane.getHeight());
 			dy *= -1;
 		} else if(y > 450)
 		{
