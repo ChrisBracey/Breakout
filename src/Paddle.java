@@ -13,21 +13,24 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Paddle extends Rectangle {
+	
+	double x = 0, y = 0;
+	
 	public Paddle(Scene scene, AnchorPane pane, Stage primaryStage) {
 		AnchorPane ancPane = pane;
 		final Rectangle rect = new Rectangle();
 		rect.setY(190);
 	    rect.yProperty().bind(ancPane.heightProperty().subtract(10));
 	    rect.setHeight(10);
-	    rect.setWidth(50);
+	    rect.setWidth(100);
 	    rect.setFill(Color.WHITE);
 	    ancPane.getChildren().add(rect);
 	    primaryStage.setScene(scene);
 	    primaryStage.setResizable(false);
 	    primaryStage.show();
-		final double rectangleSpeed = 200; // pixels per second
+		final double rectangleSpeed = 600; // pixels per second
 		final double minX = 0;
-		final double maxX = 600 - 40;
+		final double maxX = 600 - 90;
 		final DoubleProperty rectangleVelocity = new SimpleDoubleProperty();
 		final LongProperty lastUpdateTime = new SimpleLongProperty();
 		final AnimationTimer rectangleAnimation = new AnimationTimer() {
@@ -38,6 +41,7 @@ public class Paddle extends Rectangle {
 					final double deltaX = elapsedSeconds * rectangleVelocity.get();
 					final double oldX = rect.getTranslateX();
 					final double newX = Math.max(minX, Math.min(maxX, oldX + deltaX));
+					x = newX;
 					rect.setTranslateX(newX);
 				}
 				lastUpdateTime.set(timestamp);

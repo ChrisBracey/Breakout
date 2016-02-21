@@ -10,8 +10,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 	    AnchorPane ancPane = new AnchorPane();      
 	    Scene scene = new Scene(ancPane, 600, 450, Color.BLACK); 
-	    final Paddle rect = new Paddle(scene, ancPane, primaryStage);
+	    final Paddle paddle = new Paddle(scene, ancPane, primaryStage);
 	    final Bricks bricks = new Bricks(ancPane);
+	    final Ball ball = new Ball(ancPane, primaryStage, bricks, paddle);
 	    primaryStage.setScene(scene);
 	    primaryStage.setResizable(false);
 	    primaryStage.show();
