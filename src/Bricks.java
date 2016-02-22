@@ -10,9 +10,10 @@ public class Bricks extends Rectangle
 	public ArrayList<Bricks> green = new ArrayList<Bricks>();
 	public int hp;
 	
-	public Bricks(double width, double height, Color color)
+	public Bricks(double width, double height, Color color, int hp)
 	{
 		super(width, height, color);
+		this.hp = hp;
 	}
 	
 	public Bricks(Pane pane)
@@ -25,7 +26,7 @@ public class Bricks extends Rectangle
 				
 				if(i<2)
 				{
-					Bricks brick = new Bricks(40, 10, Color.RED);
+					Bricks brick = new Bricks(40, 10, Color.RED, 4);
 					brick.setStroke(Color.BLACK);
 					brick.setX(j*40+65);
 					brick.setY(i*10+50);
@@ -36,7 +37,7 @@ public class Bricks extends Rectangle
 				}
 				if(i<4)
 				{
-					Bricks brick = new Bricks(40, 10, Color.ORANGE);
+					Bricks brick = new Bricks(40, 10, Color.ORANGE, 3);
 					brick.setStroke(Color.BLACK);
 					brick.setX(j*40+65);
 					brick.setY(i*10+50);
@@ -47,11 +48,10 @@ public class Bricks extends Rectangle
 				}
 				if(i<6)
 				{
-					Bricks brick = new Bricks(40, 10, Color.GREEN);
+					Bricks brick = new Bricks(40, 10, Color.GREEN, 2);
 					brick.setStroke(Color.BLACK);
 					brick.setX(j*40+65);
 					brick.setY(i*10+50);
-					hp = 2;
 					pane.getChildren().add(brick);
 					bricks.add(brick);	
 					green.add(brick);
@@ -59,7 +59,7 @@ public class Bricks extends Rectangle
 				}
 				else
 				{
-					Bricks brick = new Bricks(40, 10, Color.YELLOW);
+					Bricks brick = new Bricks(40, 10, Color.YELLOW, 1);
 					brick.setStroke(Color.BLACK);
 					brick.setX(j*40+65);
 					brick.setY(i*10+50);

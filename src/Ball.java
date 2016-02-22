@@ -76,7 +76,7 @@ public class Ball extends Circle
 			}
 		}
 
-		if (y - ball.getRadius() <= 110 && y - ball.getRadius() >= 90)
+		if (y - ball.getRadius() <= 100 && y - ball.getRadius() >= 80)
 		{
 			for (int i = 0; i < bricks.green.size(); ++i)
 			{
@@ -92,9 +92,12 @@ public class Ball extends Circle
 						{
 							bricks.green.get(i)
 									.setHp(bricks.green.get(i).hp - 1);
+							if(bricks.green.get(i).hp == 0)
+							{
 								bricks.bricks.remove(bricks.green.get(i));
 								pane.getChildren().remove(bricks.green.get(i));
 								bricks.green.remove(i);
+							}
 							dy *= -1;
 						}
 					}

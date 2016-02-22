@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class Paddle extends Rectangle {
 	
-	double x = 0, y = 0;
+	double x = 0;
 	
 	public Paddle(Scene scene, AnchorPane pane, Stage primaryStage) {
 		AnchorPane ancPane = pane;
