@@ -12,7 +12,7 @@ public class Main extends Application {
 	    Scene scene = new Scene(ancPane, 600, 450, Color.BLACK); 
 	    final Paddle paddle = new Paddle(scene, ancPane, primaryStage);
 	    Bricks bricks = new Bricks(ancPane);
-	    final Ball ball = new Ball(ancPane, scene, bricks, paddle, primaryStage);
+	    final Ball ball = new Ball(ancPane, scene, bricks, paddle, primaryStage,false);
 	    primaryStage.setScene(scene);
 	    primaryStage.setResizable(false);
 	    primaryStage.show();

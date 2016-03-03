@@ -17,17 +17,17 @@ public class Ball extends Circle {
 	private double dx = 1, dy = 1;
 	private boolean gameOver = false;
 	private int intScore = 0;
-	private Text score = new Text(10, 15, "000000");
+	private Text score = new Text(10, 15, "");
 	private Bricks bricks;
 	private Text text = new Text(0, 0, "");
-	private boolean nextLevel = false;
 
-	public Ball(Pane pane, Scene scene, Bricks bricks, Paddle paddle, Stage stage) {
+	public Ball(Pane pane, Scene scene, Bricks bricks, Paddle paddle, Stage stage, boolean nextLevel) {
 		this.bricks = bricks;
 		ball = new Circle(x, y, 9);
 		ball.setFill(Color.BLUE);
-		pane.getChildren().add(ball);
+		pane.getChildren().addAll(ball,score);
 		if (!nextLevel) {
+			score.setText("000000");
 			score.setFont(new Font("Times New Roman", 20));
 			score.setFill(Color.WHITE);
 			pane.getChildren().add(score);
@@ -43,12 +43,12 @@ public class Ball extends Circle {
 
 	protected void moveBall(Bricks bricks, Pane pane, Scene scene, Paddle paddle, Stage stage) {
 
-		if ((x >= paddle.x + 250 && x <= paddle.x + 250 + 100)
+	/*	if ((x >= paddle.x + 250 && x <= paddle.x + 250 + 100)
 				&& y == pane.getHeight() - 10 - paddle.getHeight() - ball.getRadius()) {
 			dy *= -1;
 		} else if (y > 450) {
 			gameOver = true;
-		}
+		}*/
 
 		pane.getChildren().remove(text);
 		if (x < ball.getRadius() || x > pane.getWidth() - ball.getRadius()) {
@@ -187,12 +187,14 @@ public class Ball extends Circle {
 		}
 
 		if (this.bricks.bricks.size() == 0) {
+
+			
 			pane.getChildren().remove(ball);
+			pane.getChildren().remove(score);
 			this.bricks = new Bricks(pane);
-			ball = new Ball(pane, scene, this.bricks, paddle, stage);
+			ball = new Ball(pane, scene, this.bricks, paddle, stage, true);
 			pane.getChildren().add(ball);
 
-			nextLevel = true;
 			text = new Text(pane.getWidth() / 3, pane.getHeight() / 2, "You Win");
 			text.setFont(Font.font("Times New Roman", 50));
 			text.setFill(Color.WHITE);
