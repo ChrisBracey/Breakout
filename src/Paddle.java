@@ -8,18 +8,20 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Paddle extends Rectangle {
 	
-	double x = 0;
+	double x = 250;
 	
-	public Paddle(Scene scene, AnchorPane pane, Stage primaryStage) {
-		AnchorPane ancPane = pane;
+	public Paddle(Scene scene, Pane pane, Stage primaryStage) {
+		AnchorPane ancPane = (AnchorPane) pane;
 		final Rectangle rect = new Rectangle();
 		rect.setY(190);
+		rect.setX(250);
 	    rect.yProperty().bind(ancPane.heightProperty().subtract(10));
 	    rect.setHeight(10);
 	    rect.setWidth(100);
@@ -40,7 +42,7 @@ public class Paddle extends Rectangle {
 					final double elapsedSeconds = (timestamp - lastUpdateTime.get()) / 1000000000.0;
 					final double deltaX = elapsedSeconds * rectangleVelocity.get();
 					final double oldX = rect.getTranslateX();
-					final double newX = Math.max(minX, Math.min(maxX, oldX + deltaX));
+					final double newX = Math.max(minX-250, Math.min(maxX-250, oldX + deltaX));
 					x = newX;
 					rect.setTranslateX(newX);
 				}

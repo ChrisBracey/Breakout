@@ -11,8 +11,8 @@ public class Main extends Application {
 	    AnchorPane ancPane = new AnchorPane();      
 	    Scene scene = new Scene(ancPane, 600, 450, Color.BLACK); 
 	    final Paddle paddle = new Paddle(scene, ancPane, primaryStage);
-	    final Bricks bricks = new Bricks(ancPane);
-	    final Ball ball = new Ball(ancPane, scene, bricks, paddle);
+	    Bricks bricks = new Bricks(ancPane);
+	    final Ball ball = new Ball(ancPane, scene, bricks, paddle, primaryStage);
 	    primaryStage.setScene(scene);
 	    primaryStage.setResizable(false);
 	    primaryStage.show();
