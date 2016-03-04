@@ -25,7 +25,7 @@ public class Ball extends Circle {
 		this.bricks = bricks;
 		ball = new Circle(x, y, 9);
 		ball.setFill(Color.BLUE);
-		pane.getChildren().addAll(ball,score);
+		pane.getChildren().addAll(ball);
 		if (!nextLevel) {
 			score.setText("000000");
 			score.setFont(new Font("Times New Roman", 20));
