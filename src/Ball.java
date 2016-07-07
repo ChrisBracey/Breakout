@@ -43,12 +43,12 @@ public class Ball extends Circle {
 
 	protected void moveBall(Bricks bricks, Pane pane, Scene scene, Paddle paddle, Stage stage) {
 
-	/*	if ((x >= paddle.x + 250 && x <= paddle.x + 250 + 100)
+    	if ((x >= paddle.x + 250 && x <= paddle.x + 250 + 100)
 				&& y == pane.getHeight() - 10 - paddle.getHeight() - ball.getRadius()) {
 			dy *= -1;
-		} else if (y > 450) {
+		} else if (y > 430) {
 			gameOver = true;
-		}*/
+		}
 
 		pane.getChildren().remove(text);
 		if (x < ball.getRadius() || x > pane.getWidth() - ball.getRadius()) {
