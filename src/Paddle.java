@@ -1,3 +1,4 @@
+import javafx.scene.control.Button;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
@@ -16,7 +17,8 @@ import javafx.stage.Stage;
 public class Paddle extends Rectangle {
 	
 	double x = 250;
-	
+	public DoubleProperty rectangleVelocity = new SimpleDoubleProperty();
+		
 	public Paddle(Scene scene, Pane pane, Stage primaryStage) {
 		AnchorPane ancPane = (AnchorPane) pane;
 		final Rectangle rect = new Rectangle();
@@ -33,8 +35,7 @@ public class Paddle extends Rectangle {
 		final double rectangleSpeed = 600; // pixels per second
 		final double minX = 0;
 		final double maxX = 600 - 90;
-		final DoubleProperty rectangleVelocity = new SimpleDoubleProperty();
-		final LongProperty lastUpdateTime = new SimpleLongProperty();
+    	final LongProperty lastUpdateTime = new SimpleLongProperty();
 		final AnimationTimer rectangleAnimation = new AnimationTimer() {
 			@Override
 			public void handle(long timestamp) {
@@ -45,12 +46,12 @@ public class Paddle extends Rectangle {
 					final double newX = Math.max(minX-250, Math.min(maxX-250, oldX + deltaX));
 					x = newX;
 					rect.setTranslateX(newX);
-				}
+               }
 				lastUpdateTime.set(timestamp);
 			}
 		};
 		rectangleAnimation.start();
-
+       
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -58,7 +59,9 @@ public class Paddle extends Rectangle {
 					rectangleVelocity.set(rectangleSpeed);
 				} else if (event.getCode() == KeyCode.A) {
 					rectangleVelocity.set(-rectangleSpeed);
-				}
+				} else if(event.getCode() == KeyCode.R) {
+                   
+                }
 			}
 		});
 
@@ -71,4 +74,8 @@ public class Paddle extends Rectangle {
 			}
 		});
 	}
+
+    public void reset() {
+      rectangleVelocity = new SimpleDoubleProperty();
+    }
 }

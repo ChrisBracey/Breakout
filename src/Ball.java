@@ -1,5 +1,8 @@
+import javafx.application.Platform;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.input.KeyEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -18,11 +21,13 @@ public class Ball extends Circle {
 	private boolean gameOver = false;
 	private int intScore = 0;
 	private Text score = new Text(10, 15, "");
-	private Bricks bricks;
+    public Paddle paddle;
+    public Bricks bricks;
 	private Text text = new Text(0, 0, "");
-
-	public Ball(Pane pane, Scene scene, Bricks bricks, Paddle paddle, Stage stage, boolean nextLevel) {
+	public Ball(Pane pane, Scene scene, Bricks bricks, Paddle paddle, Stage stage, boolean nextLevel, boolean gameOver) {
 		this.bricks = bricks;
+        this.gameOver=gameOver;
+        this.paddle=paddle;
 		ball = new Circle(x, y, 9);
 		ball.setFill(Color.BLUE);
 		pane.getChildren().addAll(ball);
@@ -176,14 +181,31 @@ public class Ball extends Circle {
 			x += dx;
 			y += dy;
 		} else {
-			pane.getChildren().remove(ball);
-
 			text = new Text(pane.getWidth() / 3, pane.getHeight() / 2, "Game Over");
 			text.setFont(Font.font("Times New Roman", 50));
 			text.setFill(Color.WHITE);
-			pane.getChildren().add(text);
-			animation.stop();
-
+			pane.getChildren().add(text); 
+            for(int i = 0; i<bricks.red.size(); ++i) {
+               pane.getChildren().remove(bricks.red.get(i));
+              // bricks.bricks.remove(bricks.red.get(i)); 
+              // bricks.red.remove(i);
+             }
+            paddle.reset();
+            animation.stop();
+            scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+             @Override
+             public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.R) {
+                    pane.getChildren().remove(text);
+                    pane.getChildren().remove(score);
+                    pane.getChildren().remove(ball);
+                   // paddle.reset(paddle,scene, pane, stage);
+                    score = new Text(10, 15, "");                    
+                    ball = new Ball(pane, scene, new Bricks(pane), paddle, stage, true, false);
+                    pane.getChildren().add(ball);
+                   }
+             }
+            });
 		}
 
 		if (this.bricks.bricks.size() == 0) {
@@ -192,7 +214,7 @@ public class Ball extends Circle {
 			pane.getChildren().remove(ball);
 			pane.getChildren().remove(score);
 			this.bricks = new Bricks(pane);
-			ball = new Ball(pane, scene, this.bricks, paddle, stage, true);
+			ball = new Ball(pane, scene, this.bricks, paddle, stage, true, false);
 			pane.getChildren().add(ball);
 
 			text = new Text(pane.getWidth() / 3, pane.getHeight() / 2, "You Win");
