@@ -31,7 +31,7 @@ public class Main extends Application {
         stage.close();
         try
         {
-             start(new Stage());
+          start(new Stage());
         } catch(Exception e) {
 
         }

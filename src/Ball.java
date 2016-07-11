@@ -190,8 +190,6 @@ public class Ball extends Circle {
               // bricks.bricks.remove(bricks.red.get(i)); 
               // bricks.red.remove(i);
              }
-            paddle.reset();
-            animation.stop();
             scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
              @Override
              public void handle(KeyEvent event) {
@@ -201,8 +199,11 @@ public class Ball extends Circle {
                     pane.getChildren().remove(ball);
                    // paddle.reset(paddle,scene, pane, stage);
                     score = new Text(10, 15, "");                    
-                    ball = new Ball(pane, scene, new Bricks(pane), paddle, stage, true, false);
+                    ball = new Ball(pane, scene, new Bricks(pane),
+                                    paddle, stage, true, false);
                     pane.getChildren().add(ball);
+                    animation.play();
+                    paddle.reset();
                    }
              }
             });

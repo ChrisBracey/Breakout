@@ -18,7 +18,9 @@ public class Paddle extends Rectangle {
 	
 	double x = 250;
 	public DoubleProperty rectangleVelocity = new SimpleDoubleProperty();
-		
+	public AnimationTimer rectangleAnimation;
+    public boolean  temp = false;
+			
 	public Paddle(Scene scene, Pane pane, Stage primaryStage) {
 		AnchorPane ancPane = (AnchorPane) pane;
 		final Rectangle rect = new Rectangle();
@@ -36,19 +38,23 @@ public class Paddle extends Rectangle {
 		final double minX = 0;
 		final double maxX = 600 - 90;
     	final LongProperty lastUpdateTime = new SimpleLongProperty();
-		final AnimationTimer rectangleAnimation = new AnimationTimer() {
-			@Override
+	    rectangleAnimation = new AnimationTimer() {
+        @Override
 			public void handle(long timestamp) {
-				if (lastUpdateTime.get() > 0) {
-					final double elapsedSeconds = (timestamp - lastUpdateTime.get()) / 1000000000.0;
+			   if (lastUpdateTime.get() > 0) {
+                final double elapsedSeconds = (timestamp - lastUpdateTime.get())
+                                                / 1000000000.0;
 					final double deltaX = elapsedSeconds * rectangleVelocity.get();
 					final double oldX = rect.getTranslateX();
-					final double newX = Math.max(minX-250, Math.min(maxX-250, oldX + deltaX));
+					final double newX = Math.max(minX-250,
+                                                 Math.min(maxX-250,
+                                                 oldX + deltaX));
 					x = newX;
 					rect.setTranslateX(newX);
-               }
+                    rectangleVelocity.set(0);
+             }
 				lastUpdateTime.set(timestamp);
-			}
+           }
 		};
 		rectangleAnimation.start();
        
@@ -59,10 +65,8 @@ public class Paddle extends Rectangle {
 					rectangleVelocity.set(rectangleSpeed);
 				} else if (event.getCode() == KeyCode.A) {
 					rectangleVelocity.set(-rectangleSpeed);
-				} else if(event.getCode() == KeyCode.R) {
-                   
-                }
-			}
+				} 
+            }
 		});
 
 		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -76,6 +80,7 @@ public class Paddle extends Rectangle {
 	}
 
     public void reset() {
+      temp = true;
       rectangleVelocity = new SimpleDoubleProperty();
-    }
+   }
 }
